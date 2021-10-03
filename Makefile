@@ -1,8 +1,7 @@
 GIT = https://github.com/notqmail/notqmail
 REF = $$(git -C notqmail.git rev-parse ${BRANCH})
-LOG = notqmail-${REF}-${PATCH}.log
 
-all:v
+all:v notqmail.git
 	@test -n '${BRANCH}' -a -n '${PATCH}'
 	@make log/${REF}-${PATCH}.log COMMIT=${REF} PATCH=${PATCH}
 
