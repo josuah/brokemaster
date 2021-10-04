@@ -32,7 +32,7 @@ Hunk #1 ignored at 136.
 Hunk #2 ignored at 1540.
 Hunk #3 ignored at 1557.
 3 out of 3 hunks ignored--saving rejects to qmail-1.03.043/Makefile.rej
-Can't create qmail-1.03.043/Makefile.rej, output is in /tmp/patchrTxcyhttPj9: No such file or directory
+Can't create qmail-1.03.043/Makefile.rej, output is in /tmp/patchryQHqyxjJia: No such file or directory
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
@@ -100,7 +100,7 @@ The text leading up to this was:
 No file to patch.  Skipping...
 Hunk #1 ignored at 10.
 1 out of 1 hunks ignored--saving rejects to qmail-1.03.043/TARGETS.rej
-Can't create qmail-1.03.043/TARGETS.rej, output is in /tmp/patchrTxcyhttPj9: No such file or directory
+Can't create qmail-1.03.043/TARGETS.rej, output is in /tmp/patchryQHqyxjJia: No such file or directory
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
@@ -334,7 +334,7 @@ The text leading up to this was:
 No file to patch.  Skipping...
 Hunk #1 ignored at 23.
 1 out of 1 hunks ignored--saving rejects to qmail-1.03.043/qmail-smtpd.8.rej
-Can't create qmail-1.03.043/qmail-smtpd.8.rej, output is in /tmp/patchrTxcyhttPj9: No such file or directory
+Can't create qmail-1.03.043/qmail-smtpd.8.rej, output is in /tmp/patchryQHqyxjJia: No such file or directory
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
@@ -349,6 +349,6 @@ Hunk #3 ignored at 243.
 Hunk #4 ignored at 414.
 Hunk #5 ignored at 654.
 5 out of 5 hunks ignored--saving rejects to qmail-1.03.043/qmail-smtpd.c.rej
-Can't create qmail-1.03.043/qmail-smtpd.c.rej, output is in /tmp/patchrTxcyhttPj9: No such file or directory
+Can't create qmail-1.03.043/qmail-smtpd.c.rej, output is in /tmp/patchryQHqyxjJia: No such file or directory
 done
-*** Error 1 in . (Makefile:36 'notqmail-aab15b1fea8a6c48953bf152a334d6a1840184c3-smtp-auth')
+*** Error 1 in . (Makefile:33 'notqmail-aab15b1fea8a6c48953bf152a334d6a1840184c3-smtp-auth')

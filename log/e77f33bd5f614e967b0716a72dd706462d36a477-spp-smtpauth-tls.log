@@ -1,9 +1,9 @@
-rm -rf notqmail-e77f33bd5f614e967b0716a72dd706462d36a477-spp-smtpauth-tls-20060105
+rm -rf notqmail-e77f33bd5f614e967b0716a72dd706462d36a477-spp-smtpauth-tls
 git -C notqmail.git fetch origin e77f33bd5f614e967b0716a72dd706462d36a477
 From https://github.com/notqmail/notqmail
  * branch            e77f33bd5f614e967b0716a72dd706462d36a477 -> FETCH_HEAD
-git -C notqmail.git archive --prefix=notqmail-e77f33bd5f614e967b0716a72dd706462d36a477-spp-smtpauth-tls-20060105/ e77f33bd5f614e967b0716a72dd706462d36a477 | tar xf -
-cd notqmail-e77f33bd5f614e967b0716a72dd706462d36a477-spp-smtpauth-tls-20060105; patch -f -p 1 <../patch/spp-smtpauth-tls-20060105.patch
+git -C notqmail.git archive --prefix=notqmail-e77f33bd5f614e967b0716a72dd706462d36a477-spp-smtpauth-tls/ e77f33bd5f614e967b0716a72dd706462d36a477 | tar xf -
+cd notqmail-e77f33bd5f614e967b0716a72dd706462d36a477-spp-smtpauth-tls; patch -f -p 1 <../patch/spp-smtpauth-tls.patch
 Hmm...  Looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
@@ -60,4 +60,4 @@ Patching file qmail-spp.h using Plan A...
 Empty context always matches.
 Hunk #1 succeeded at 1.
 done
-*** Error 1 in . (Makefile:36 'notqmail-e77f33bd5f614e967b0716a72dd706462d36a477-spp-smtpauth-tls-20060105')
+*** Error 1 in . (Makefile:33 'notqmail-e77f33bd5f614e967b0716a72dd706462d36a477-spp-smtpauth-tls')

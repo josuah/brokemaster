@@ -1,0 +1,52 @@
+rm -rf notqmail-8c53cd40a3329d682a905decb1f8734fa1ba2e9a-netqmail-spp
+git -C notqmail.git fetch origin 8c53cd40a3329d682a905decb1f8734fa1ba2e9a
+From https://github.com/notqmail/notqmail
+ * branch            8c53cd40a3329d682a905decb1f8734fa1ba2e9a -> FETCH_HEAD
+git -C notqmail.git archive --prefix=notqmail-8c53cd40a3329d682a905decb1f8734fa1ba2e9a-netqmail-spp/ 8c53cd40a3329d682a905decb1f8734fa1ba2e9a | tar xf -
+cd notqmail-8c53cd40a3329d682a905decb1f8734fa1ba2e9a-netqmail-spp; patch -f -p 1 <../patch/netqmail-spp.patch
+Hmm...  Looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- Makefile	2004-08-10 11:45:55.000000000 +0200
+|+++ Makefile	2005-01-19 12:58:40.000000000 +0100
+--------------------------
+Patching file Makefile using Plan A...
+Hunk #1 failed at 1531.
+Hunk #2 succeeded at 1475 (offset -83 lines).
+1 out of 2 hunks failed--saving rejects to Makefile.rej
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- qmail-smtpd.c	2004-08-10 11:45:55.000000000 +0200
+|+++ qmail-smtpd.c	2006-04-01 22:22:59.000000000 +0200
+--------------------------
+Patching file qmail-smtpd.c using Plan A...
+Hunk #1 succeeded at 24 (offset 1 line).
+Hunk #2 succeeded at 108 (offset -6 lines).
+Hunk #3 succeeded at 224 (offset 1 line).
+Hunk #4 succeeded at 255 (offset -6 lines).
+Hunk #5 succeeded at 381 (offset -6 lines).
+Hunk #6 succeeded at 389 (offset -6 lines).
+Hunk #7 succeeded at 426 (offset -6 lines).
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- qmail-spp.c	1970-01-01 01:00:00.000000000 +0100
+|+++ qmail-spp.c	2006-04-01 22:46:52.000000000 +0200
+--------------------------
+(Creating file qmail-spp.c...)
+Patching file qmail-spp.c using Plan A...
+Empty context always matches.
+Hunk #1 succeeded at 1.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|--- qmail-spp.h	1970-01-01 01:00:00.000000000 +0100
+|+++ qmail-spp.h	2005-01-19 12:53:44.000000000 +0100
+--------------------------
+(Creating file qmail-spp.h...)
+Patching file qmail-spp.h using Plan A...
+Empty context always matches.
+Hunk #1 succeeded at 1.
+done
+*** Error 1 in . (Makefile:33 'notqmail-8c53cd40a3329d682a905decb1f8734fa1ba2e9a-netqmail-spp')

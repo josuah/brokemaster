@@ -1,0 +1,390 @@
+rm -rf notqmail-8c53cd40a3329d682a905decb1f8734fa1ba2e9a-badmailfrom-x-relayclient
+git -C notqmail.git fetch origin 8c53cd40a3329d682a905decb1f8734fa1ba2e9a
+From https://github.com/notqmail/notqmail
+ * branch            8c53cd40a3329d682a905decb1f8734fa1ba2e9a -> FETCH_HEAD
+git -C notqmail.git archive --prefix=notqmail-8c53cd40a3329d682a905decb1f8734fa1ba2e9a-badmailfrom-x-relayclient/ 8c53cd40a3329d682a905decb1f8734fa1ba2e9a | tar xf -
+cd notqmail-8c53cd40a3329d682a905decb1f8734fa1ba2e9a-badmailfrom-x-relayclient; patch -f -p 1 <../patch/badmailfrom-x-relayclient.patch
+Hmm...  Looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|This patch disables the badmailfrom check where RELAYCLIENT is set.
+|
+|This allows you to put your own domain in badmailfrom, but still allow your
+|customers to relay through your mail server.
+|
+|Also Works with the qmail-smtpd-auth patch from http://members.elysium.pl/brush/qmail-smtpd-auth/
+|so your smtp authenticated users are also permitted to relay.
+|
+|The basic idea behind the need for this concept is so you can put your own domain in badmailfrom,
+|and still allow your trusted users to be able to send mail through your mail server.
+|
+|Jeremy Kitchen -- kitchen@scriptkitchen.com 12/23/2003
+|
+|diff -urN qmail-1.03.orig/qmail-smtpd.c qmail-1.03/qmail-smtpd.c
+|--- qmail-1.03.orig/qmail-smtpd.c	1998-06-15 05:53:16.000000000 -0500
+|+++ qmail-1.03/qmail-smtpd.c	2003-12-23 16:41:44.386786384 -0600
+--------------------------
+Patching file qmail-smtpd.c using Plan A...
+Hunk #1 succeeded at 235 (offset -5 lines).
+done
+make -C notqmail-8c53cd40a3329d682a905decb1f8734fa1ba2e9a-badmailfrom-x-relayclient it
+( cat warn-auto.sh;  echo CC=\'`head -n 1 conf-cc`\';  echo LD=\'`head -n 1 conf-ld`\'  ) > auto-ccld.sh
+cat auto-ccld.sh make-load.sh > make-load
+chmod 755 make-load
+( cat warn-auto.sh; ./make-load ) > load
+chmod 755 load
+cat auto-ccld.sh make-compile.sh > make-compile
+chmod 755 make-compile
+( cat warn-auto.sh; ./make-compile ) > compile
+chmod 755 compile
+./compile qmail-local.c
+./compile qmail.c
+( ( ./compile chkbiofl.c  && ./load chkbiofl &&  ./chkbiofl ) >/dev/null 2>&1  && cat oflops_bi.h || cat oflops_compat.h ) > oflops.h
+rm -f chkbiofl.o chkbiofl
+./compile quote.c
+./compile gfrom.c
+./compile myctime.c
+./compile slurpclose.c
+cat auto-ccld.sh make-makelib.sh > make-makelib
+chmod 755 make-makelib
+( cat warn-auto.sh; ./make-makelib ) >  makelib
+chmod 755 makelib
+./compile case_diffb.c
+./compile case_diffs.c
+./compile case_lowerb.c
+./compile case_lowers.c
+./compile case_starts.c
+./makelib case.a case_diffb.o case_diffs.o case_lowerb.o  case_lowers.o case_starts.o
+./compile getln.c
+./compile getln2.c
+./makelib getln.a getln.o getln2.o
+./compile subgetopt.c
+./compile sgetopt.c
+./makelib getopt.a subgetopt.o sgetopt.o
+./compile sig_alarm.c
+( ( ./compile trysgprm.c && ./load trysgprm ) >/dev/null  2>&1  && echo \#define HASSIGPROCMASK 1 || exit 0 ) > hassgprm.h
+rm -f trysgprm.o trysgprm
+./compile sig_block.c
+( ( ./compile trysgact.c && ./load trysgact ) >/dev/null  2>&1  && echo \#define HASSIGACTION 1 || exit 0 ) > hassgact.h
+rm -f trysgact.o trysgact
+./compile sig_catch.c
+./compile sig_pause.c
+./compile sig_pipe.c
+./compile sig_child.c
+./compile sig_hup.c
+./compile sig_term.c
+./compile sig_bug.c
+./compile sig_misc.c
+./makelib sig.a sig_alarm.o sig_block.o sig_catch.o  sig_pause.o sig_pipe.o sig_child.o sig_hup.o sig_term.o  sig_bug.o sig_misc.o
+./compile open_append.c
+./compile open_excl.c
+./compile open_read.c
+./compile open_trunc.c
+./compile open_write.c
+./makelib open.a open_append.o open_excl.o open_read.o  open_trunc.o open_write.o
+( ( ./compile tryflock.c && ./load tryflock ) >/dev/null  2>&1  && echo \#define HASFLOCK 1 || exit 0 ) > hasflock.h
+rm -f tryflock.o tryflock
+./compile lock_ex.c
+./compile lock_exnb.c
+./compile lock_un.c
+./makelib lock.a lock_ex.o lock_exnb.o lock_un.o
+./compile fd_copy.c
+./compile fd_move.c
+./makelib fd.a fd_copy.o fd_move.o
+( ( ./compile trywaitp.c && ./load trywaitp ) >/dev/null  2>&1  && echo \#define HASWAITPID 1 || exit 0 ) > haswaitp.h
+rm -f trywaitp.o trywaitp
+./compile wait_pid.c
+./compile wait_nohang.c
+./makelib wait.a wait_pid.o wait_nohang.o
+./compile env.c
+./compile envread.c
+./makelib env.a env.o envread.o
+./compile stralloc_eady.c
+./compile stralloc_pend.c
+./compile stralloc_copy.c
+./compile stralloc_opys.c
+./compile stralloc_opyb.c
+./compile stralloc_cat.c
+./compile stralloc_cats.c
+./compile stralloc_catb.c
+./compile stralloc_arts.c
+./makelib stralloc.a stralloc_eady.o stralloc_pend.o  stralloc_copy.o stralloc_opys.o stralloc_opyb.o  stralloc_cat.o stralloc_cats.o stralloc_catb.o  stralloc_arts.o
+./compile strerr_sys.c
+./compile strerr_die.c
+./makelib strerr.a strerr_sys.o strerr_die.o
+./compile substdio.c
+./compile substdi.c
+./compile substdo.c
+./compile subfderr.c
+./compile subfdout.c
+./compile subfdouts.c
+./compile subfdin.c
+./compile subfdins.c
+./compile substdio_copy.c
+./makelib substdio.a substdio.o substdi.o substdo.o  subfderr.o subfdout.o subfdouts.o subfdin.o subfdins.o  substdio_copy.o
+./compile error_str.c
+./compile error_temp.c
+./makelib error.a error_str.o error_temp.o
+./compile str_chr.c
+./compile str_rchr.c
+./compile str_start.c
+./compile byte_chr.c
+./compile byte_rchr.c
+./compile byte_copy.c
+./compile byte_cr.c
+./compile byte_zero.c
+./makelib str.a  str_chr.o str_rchr.o str_start.o byte_chr.o byte_rchr.o  byte_copy.o byte_cr.o byte_zero.o
+./compile fmt_str.c
+./compile fmt_strn.c
+./compile fmt_uint.c
+./compile fmt_uint0.c
+./compile fmt_ulong.c
+./compile scan_ulong.c
+./compile scan_8long.c
+./makelib fs.a fmt_str.o fmt_strn.o fmt_uint.o fmt_uint0.o  fmt_ulong.o scan_ulong.o scan_8long.o
+./compile datetime.c
+./compile datetime_un.c
+./makelib datetime.a datetime.o datetime_un.o
+./compile auto-str.c
+auto-str.c:10: warning: conflicting types for built-in function 'puts'
+./load auto-str substdio.a error.a str.a 
+./auto-str auto_qmail `head -n 1 conf-qmail` > auto_qmail.c
+./compile auto_qmail.c
+./compile auto-int8.c
+auto-int8.c:11: warning: conflicting types for built-in function 'puts'
+./load auto-int8 substdio.a error.a str.a fs.a 
+./auto-int8 auto_patrn `head -n 1 conf-patrn` > auto_patrn.c
+./compile auto_patrn.c
+( ( ./compile trylsock.c &&  ./load trylsock -lsocket -lnsl ) >/dev/null 2>&1  && echo -lsocket -lnsl || exit 0 ) > socket.lib
+rm -f trylsock.o trylsock
+./load qmail-local qmail.o quote.o gfrom.o myctime.o  slurpclose.o case.a getln.a getopt.a sig.a open.a  lock.a fd.a wait.a env.a stralloc.a strerr.a  substdio.a error.a str.a fs.a datetime.a auto_qmail.o  auto_patrn.o  `cat socket.lib`
+./compile qmail-lspawn.c
+( ./compile trysysel.c >/dev/null 2>&1  && cat select.h2 || cat select.h1 ) > select.h
+rm -f trysysel.o trysysel
+./compile chkspawn.c
+./compile auto-int.c
+auto-int.c:11: warning: conflicting types for built-in function 'puts'
+./load auto-int substdio.a error.a str.a fs.a 
+./auto-int auto_spawn `head -n 1 conf-spawn` > auto_spawn.c
+./compile auto_spawn.c
+./load chkspawn substdio.a error.a str.a fs.a auto_spawn.o 
+./chkspawn
+./compile spawn.c
+./compile prot.c
+./compile coe.c
+./compile cdb_hash.c
+./compile cdb_unpack.c
+./compile cdb_seek.c
+./makelib cdb.a cdb_hash.o cdb_unpack.o cdb_seek.o
+./auto-str auto_usera `head -n 1 conf-users` > auto_usera.c
+./compile auto_usera.c
+./auto-str auto_userd `head -n 2 conf-users | tail -1` > auto_userd.c
+./compile auto_userd.c
+./auto-str auto_userl `head -n 3 conf-users | tail -1` > auto_userl.c
+./compile auto_userl.c
+./auto-str auto_usero `head -n 4 conf-users | tail -1` > auto_usero.c
+./compile auto_usero.c
+./auto-str auto_userp `head -n 5 conf-users | tail -1` > auto_userp.c
+./compile auto_userp.c
+./auto-str auto_userq `head -n 6 conf-users | tail -1` > auto_userq.c
+./compile auto_userq.c
+./auto-str auto_userr `head -n 7 conf-users | tail -1` > auto_userr.c
+./compile auto_userr.c
+./auto-str auto_users `head -n 8 conf-users | tail -1` > auto_users.c
+./compile auto_users.c
+./auto-str auto_groupn `head -n 2 conf-groups | tail -1` > auto_groupn.c
+./compile auto_groupn.c
+./auto-str auto_groupq `head -n 1 conf-groups` > auto_groupq.c
+./compile auto_groupq.c
+./compile gid.c
+./compile uid.c
+./makelib ids.a auto_usera.o auto_userd.o auto_userl.o auto_usero.o  auto_userp.o auto_userq.o auto_userr.o auto_users.o auto_groupn.o  auto_groupq.o gid.o uid.o
+./load qmail-lspawn spawn.o prot.o slurpclose.o coe.o sig.a wait.a  case.a cdb.a fd.a open.a stralloc.a auto_qmail.o  auto_spawn.o ids.a substdio.a error.a str.a fs.a
+./compile qmail-getpw.c
+./auto-str auto_break  "`head -n 1 conf-break`" > auto_break.c
+./compile auto_break.c
+./load qmail-getpw case.a substdio.a error.a str.a fs.a  auto_break.o ids.a
+./compile qmail-remote.c
+./compile control.c
+./compile constmap.c
+./compile timeoutread.c
+./compile timeoutwrite.c
+./compile timeoutconn.c
+./compile tcpto.c
+./compile dns.c
+./compile ip.c
+./compile ipalloc.c
+( ./compile trysalen.c >/dev/null 2>&1  && echo \#define HASSALEN 1 || exit 0 ) > hassalen.h
+rm -f trysalen.o
+./compile ipme.c
+./compile ndelay.c
+./compile ndelay_off.c
+./makelib ndelay.a ndelay.o ndelay_off.o
+( ( ./compile tryrsolv.c && ./load tryrsolv dns.o  ipalloc.o ip.o stralloc.a error.a fs.a str.a  -lresolv `cat socket.lib` ) >/dev/null 2>&1  && echo -lresolv || exit 0 ) > dns.lib
+rm -f tryrsolv.o tryrsolv
+./load qmail-remote control.o constmap.o timeoutread.o  timeoutwrite.o timeoutconn.o tcpto.o dns.o ip.o  ipalloc.o ipme.o quote.o ndelay.a case.a sig.a open.a  lock.a getln.a stralloc.a substdio.a error.a  str.a fs.a auto_qmail.o  `cat dns.lib` `cat socket.lib`
+./compile qmail-rspawn.c
+./compile tcpto_clean.c
+./load qmail-rspawn spawn.o tcpto_clean.o coe.o  sig.a open.a lock.a wait.a fd.a stralloc.a  auto_qmail.o ids.a substdio.a error.a env.a str.a  auto_spawn.o
+( ./compile trydrent.c >/dev/null 2>&1  && cat direntry.h2 || cat direntry.h1 ) > direntry.h
+rm -f trydrent.o
+./compile qmail-clean.c
+./compile fmtqfn.c
+./auto-int auto_split `head -n 1 conf-split` > auto_split.c
+./compile auto_split.c
+./load qmail-clean fmtqfn.o getln.a sig.a stralloc.a  substdio.a error.a str.a fs.a auto_qmail.o  auto_split.o 
+./compile qmail-send.c
+In file included from qmail-send.c:30:
+qsutil.h:11: warning: conflicting types for built-in function 'log2'
+./compile qsutil.c
+In file included from qsutil.c:1:
+qsutil.h:11: warning: conflicting types for built-in function 'log2'
+./compile newfield.c
+./compile prioq.c
+( ( ./compile trymkffo.c && ./load trymkffo ) >/dev/null  2>&1  && echo \#define HASMKFIFO 1 || exit 0 ) > hasmkffo.h
+rm -f trymkffo.o trymkffo
+./compile fifo.c
+( ( ./compile trynpbg1.c  && ./load trynpbg1 fifo.o open.a && ./trynpbg1 )  >/dev/null 2>&1  && echo \#define HASNAMEDPIPEBUG1 1 || exit 0 ) >  hasnpbg1.h
+rm -f trynpbg1.o trynpbg1
+./compile trigger.c
+./compile readsubdir.c
+./compile date822fmt.c
+./load qmail-send qsutil.o control.o constmap.o newfield.o  prioq.o trigger.o fmtqfn.o quote.o readsubdir.o  qmail.o date822fmt.o datetime.a case.a ndelay.a getln.a  wait.a fd.a sig.a open.a lock.a stralloc.a  substdio.a error.a str.a fs.a auto_qmail.o auto_split.o env.a
+./compile qmail-start.c
+./load qmail-start prot.o fd.a ids.a substdio.a error.a str.a
+./compile splogger.c
+( ( ./compile trysyslog.c &&  ./load trysyslog -lgen ) >/dev/null 2>&1  && echo -lgen || exit 0 ) > syslog.lib
+rm -f trysyslog.o trysyslog
+./load splogger substdio.a error.a str.a fs.a  `cat  syslog.lib` `cat socket.lib`
+./compile qmail-queue.c
+./compile triggerpull.c
+./load qmail-queue triggerpull.o fmtqfn.o  date822fmt.o datetime.a ndelay.a open.a sig.a  auto_qmail.o auto_split.o ids.a  substdio.a error.a str.a fs.a
+./compile qmail-inject.c
+qmail-inject.c:59: warning: conflicting types for built-in function 'puts'
+./compile headerbody.c
+./compile hfield.c
+./compile token822.c
+./load qmail-inject headerbody.o hfield.o newfield.o  quote.o control.o date822fmt.o constmap.o qmail.o  case.a fd.a wait.a open.a getln.a sig.a getopt.a datetime.a  token822.o env.a stralloc.a substdio.a error.a  str.a fs.a auto_qmail.o 
+./compile predate.c
+./load predate datetime.a strerr.a sig.a fd.a wait.a  substdio.a error.a str.a fs.a 
+cat warn-auto.sh datemail.sh  | sed s}QMAIL}"`head -n 1 conf-qmail`"}g  | sed s}BREAK}"`head -n 1 conf-break`"}g  | sed s}SPLIT}"`head -n 1 conf-split`"}g  > datemail
+chmod 755 datemail
+cat warn-auto.sh mailsubj.sh  | sed s}QMAIL}"`head -n 1 conf-qmail`"}g  | sed s}BREAK}"`head -n 1 conf-break`"}g  | sed s}SPLIT}"`head -n 1 conf-split`"}g  > mailsubj
+chmod 755 mailsubj
+cat warn-auto.sh qmail-upq.sh  | sed s}QMAIL}"`head -n 1 conf-qmail`"}g  | sed s}BREAK}"`head -n 1 conf-break`"}g  | sed s}SPLIT}"`head -n 1 conf-split`"}g  > qmail-upq
+chmod 755 qmail-upq
+./compile qmail-showctl.c
+./load qmail-showctl control.o open.a getln.a ids.a  stralloc.a substdio.a error.a str.a fs.a auto_qmail.o  auto_break.o auto_patrn.o auto_spawn.o auto_split.o
+./compile qmail-newu.c
+./compile cdbmss.c
+./compile cdbmake_pack.c
+./compile cdbmake_hash.c
+./compile cdbmake_add.c
+./makelib cdbmake.a cdbmake_pack.o cdbmake_hash.o  cdbmake_add.o
+./load qmail-newu cdbmss.o getln.a open.a cdbmake.a  case.a stralloc.a substdio.a error.a str.a  auto_qmail.o 
+./compile qmail-pw2u.c
+./load qmail-pw2u constmap.o control.o open.a getln.a  case.a getopt.a stralloc.a substdio.a error.a str.a  fs.a ids.a auto_break.o auto_qmail.o
+./compile qmail-qread.c
+./load qmail-qread fmtqfn.o readsubdir.o date822fmt.o  datetime.a open.a getln.a stralloc.a substdio.a  error.a str.a fs.a auto_qmail.o auto_split.o 
+cat warn-auto.sh qmail-qstat.sh  | sed s}QMAIL}"`head -n 1 conf-qmail`"}g  | sed s}BREAK}"`head -n 1 conf-break`"}g  | sed s}SPLIT}"`head -n 1 conf-split`"}g  > qmail-qstat
+chmod 755 qmail-qstat
+./compile qmail-tcpto.c
+./load qmail-tcpto ip.o open.a lock.a substdio.a  error.a str.a fs.a auto_qmail.o 
+./compile qmail-tcpok.c
+./load qmail-tcpok open.a lock.a strerr.a substdio.a  error.a str.a auto_qmail.o 
+./compile qmail-pop3d.c
+qmail-pop3d.c:43: warning: conflicting types for built-in function 'puts'
+./compile commands.c
+./compile maildir.c
+./load qmail-pop3d commands.o case.a timeoutread.o  timeoutwrite.o maildir.o prioq.o env.a strerr.a sig.a  open.a getln.a stralloc.a substdio.a error.a str.a  fs.a  `cat socket.lib`
+./compile qmail-popup.c
+qmail-popup.c:29: warning: conflicting types for built-in function 'puts'
+./load qmail-popup commands.o timeoutread.o timeoutwrite.o  case.a fd.a sig.a wait.a stralloc.a  substdio.a error.a str.a fs.a  `cat socket.lib`
+./compile qmail-qmqpc.c
+./load qmail-qmqpc slurpclose.o timeoutread.o  timeoutwrite.o timeoutconn.o ip.o control.o auto_qmail.o  sig.a ndelay.a open.a getln.a substdio.a stralloc.a  error.a str.a fs.a  `cat socket.lib`
+./compile qmail-qmqpd.c
+./compile received.c
+./load qmail-qmqpd received.o date822fmt.o qmail.o  auto_qmail.o env.a substdio.a sig.a error.a wait.a fd.a  str.a datetime.a fs.a 
+./compile qmail-qmtpd.c
+./compile rcpthosts.c
+./load qmail-qmtpd rcpthosts.o control.o constmap.o  received.o date822fmt.o qmail.o cdb.a fd.a wait.a  datetime.a open.a getln.a sig.a case.a env.a stralloc.a  substdio.a error.a str.a fs.a auto_qmail.o
+./compile qmail-smtpd.c
+./load qmail-smtpd rcpthosts.o commands.o timeoutread.o  timeoutwrite.o ip.o ipme.o ipalloc.o control.o constmap.o  received.o date822fmt.o qmail.o cdb.a fd.a wait.a  datetime.a getln.a open.a sig.a case.a env.a stralloc.a  substdio.a error.a str.a fs.a auto_qmail.o  `cat  socket.lib`
+./compile sendmail.c
+./load sendmail env.a getopt.a substdio.a error.a  str.a auto_qmail.o 
+./compile tcp-env.c
+./compile remoteinfo.c
+./load tcp-env dns.o remoteinfo.o timeoutread.o  timeoutwrite.o timeoutconn.o ip.o ipalloc.o case.a ndelay.a  sig.a env.a getopt.a stralloc.a substdio.a error.a  str.a fs.a  `cat dns.lib` `cat socket.lib`
+./compile qmail-newmrh.c
+./load qmail-newmrh cdbmss.o getln.a open.a cdbmake.a  case.a stralloc.a strerr.a substdio.a  error.a str.a auto_qmail.o 
+cat warn-auto.sh config.sh  | sed s}QMAIL}"`head -n 1 conf-qmail`"}g  | sed s}BREAK}"`head -n 1 conf-break`"}g  | sed s}SPLIT}"`head -n 1 conf-split`"}g  > config
+chmod 755 config
+cat warn-auto.sh config-fast.sh  | sed s}QMAIL}"`head -n 1 conf-qmail`"}g  | sed s}BREAK}"`head -n 1 conf-break`"}g  | sed s}SPLIT}"`head -n 1 conf-split`"}g  > config-fast
+chmod 755 config-fast
+./compile dnsptr.c
+./compile dnsdoe.c
+./load dnsptr dns.o dnsdoe.o ip.o ipalloc.o stralloc.a  substdio.a error.a str.a fs.a  `cat dns.lib` `cat socket.lib`
+./compile dnsip.c
+./load dnsip dns.o dnsdoe.o ip.o ipalloc.o stralloc.a  substdio.a error.a str.a fs.a  `cat dns.lib` `cat socket.lib`
+./compile dnsfq.c
+./load dnsfq dns.o dnsdoe.o ip.o ipalloc.o stralloc.a  substdio.a error.a str.a fs.a  `cat dns.lib` `cat socket.lib`
+./compile hostname.c
+./load hostname substdio.a error.a str.a  `cat dns.lib`  `cat socket.lib`
+./compile ipmeprint.c
+./load ipmeprint ipme.o ip.o ipalloc.o stralloc.a  substdio.a error.a str.a fs.a  `cat socket.lib`
+./compile qreceipt.c
+./load qreceipt headerbody.o hfield.o quote.o token822.o  qmail.o getln.a fd.a wait.a sig.a env.a stralloc.a  substdio.a error.a str.a auto_qmail.o 
+( ( ./compile tryutmpx.c && ./load tryutmpx ) >/dev/null 2>&1  && cat qtmp.h2 || cat qtmp.h1 ) > qtmp.h
+rm -f tryutmpx.o tryutmpx
+./compile qbiff.c
+qbiff.c: In function 'main':
+qbiff.c:83: warning: passing argument 2 of 'substdio_get' from incompatible pointer type
+./load qbiff headerbody.o hfield.o getln.a env.a open.a  stralloc.a substdio.a error.a str.a
+./compile forward.c
+./load forward qmail.o strerr.a fd.a wait.a sig.a  env.a substdio.a error.a str.a fs.a auto_qmail.o 
+./compile preline.c
+./load preline strerr.a fd.a wait.a sig.a env.a getopt.a  substdio.a error.a str.a 
+./compile condredirect.c
+./load condredirect qmail.o strerr.a fd.a sig.a wait.a  env.a substdio.a error.a str.a fs.a auto_qmail.o
+./compile bouncesaying.c
+./load bouncesaying strerr.a error.a substdio.a str.a  wait.a 
+./compile except.c
+./load except strerr.a error.a substdio.a str.a wait.a 
+./compile maildirmake.c
+./load maildirmake strerr.a substdio.a error.a str.a 
+./compile maildir2mbox.c
+./load maildir2mbox maildir.o prioq.o myctime.o  gfrom.o lock.a getln.a env.a open.a strerr.a stralloc.a  substdio.a error.a str.a fs.a datetime.a
+./compile instpackage.c
+./compile instfiles.c
+./compile hier.c
+./load instpackage instfiles.o fifo.o hier.o auto_qmail.o auto_split.o  strerr.a substdio.a open.a error.a env.a str.a fs.a stralloc.a
+./compile instchown.c
+./compile instuidgid.c
+./load instchown instuidgid.o fifo.o hier.o auto_qmail.o auto_split.o  ids.a strerr.a substdio.a error.a str.a fs.a
+( cat warn-auto.sh; echo './instpackage && ./instchown' ) > install
+chmod 755 install
+./compile instqueue.c
+./load instqueue instfiles.o fifo.o hier.o auto_qmail.o auto_split.o  strerr.a substdio.a open.a error.a env.a str.a fs.a stralloc.a
+./compile instcheck.c
+./load instcheck instuidgid.o fifo.o hier.o auto_qmail.o auto_split.o  ids.a strerr.a substdio.a error.a str.a fs.a
+cat home.sh  | sed s}QMAIL}"`head -n 1 conf-qmail`"}g  > home
+chmod 755 home
+cat home+df.sh  | sed s}QMAIL}"`head -n 1 conf-qmail`"}g  > home+df
+chmod 755 home+df
+cat proc.sh  | sed s}QMAIL}"`head -n 1 conf-qmail`"}g  > proc
+chmod 755 proc
+cat proc+df.sh  | sed s}QMAIL}"`head -n 1 conf-qmail`"}g  > proc+df
+chmod 755 proc+df
+cat binm1.sh  | sed s}QMAIL}"`head -n 1 conf-qmail`"}g  > binm1
+chmod 755 binm1
+cat binm1+df.sh  | sed s}QMAIL}"`head -n 1 conf-qmail`"}g  > binm1+df
+chmod 755 binm1+df
+cat binm2.sh  | sed s}QMAIL}"`head -n 1 conf-qmail`"}g  > binm2
+chmod 755 binm2
+cat binm2+df.sh  | sed s}QMAIL}"`head -n 1 conf-qmail`"}g  > binm2+df
+chmod 755 binm2+df
+cat binm3.sh  | sed s}QMAIL}"`head -n 1 conf-qmail`"}g  > binm3
+chmod 755 binm3
+cat binm3+df.sh  | sed s}QMAIL}"`head -n 1 conf-qmail`"}g  > binm3+df
+chmod 755 binm3+df
+ok

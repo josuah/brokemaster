@@ -1,9 +1,9 @@
-rm -rf notqmail-e77f33bd5f614e967b0716a72dd706462d36a477-big-concurrency
-git -C notqmail.git fetch origin e77f33bd5f614e967b0716a72dd706462d36a477
+rm -rf notqmail-8c53cd40a3329d682a905decb1f8734fa1ba2e9a-big-concurrency
+git -C notqmail.git fetch origin 8c53cd40a3329d682a905decb1f8734fa1ba2e9a
 From https://github.com/notqmail/notqmail
- * branch            e77f33bd5f614e967b0716a72dd706462d36a477 -> FETCH_HEAD
-git -C notqmail.git archive --prefix=notqmail-e77f33bd5f614e967b0716a72dd706462d36a477-big-concurrency/ e77f33bd5f614e967b0716a72dd706462d36a477 | tar xf -
-cd notqmail-e77f33bd5f614e967b0716a72dd706462d36a477-big-concurrency; patch -f -p 1 <../patch/big-concurrency.patch
+ * branch            8c53cd40a3329d682a905decb1f8734fa1ba2e9a -> FETCH_HEAD
+git -C notqmail.git archive --prefix=notqmail-8c53cd40a3329d682a905decb1f8734fa1ba2e9a-big-concurrency/ 8c53cd40a3329d682a905decb1f8734fa1ba2e9a | tar xf -
+cd notqmail-8c53cd40a3329d682a905decb1f8734fa1ba2e9a-big-concurrency; patch -f -p 1 <../patch/big-concurrency.patch
 Hmm...  Looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
@@ -62,7 +62,7 @@ The text leading up to this was:
 |+++ qmail-1.03/chkspawn.c	Wed Aug  4 20:33:22 1999
 --------------------------
 Patching file chkspawn.c using Plan A...
-Hunk #1 succeeded at 22.
+Hunk #1 succeeded at 21 with fuzz 2 (offset -1 lines).
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
@@ -80,10 +80,10 @@ The text leading up to this was:
 |+++ qmail-1.03/qmail-send.c	Wed Aug  4 20:37:23 1999
 --------------------------
 Patching file qmail-send.c using Plan A...
-Hunk #1 succeeded at 259 (offset -3 lines).
-Hunk #2 succeeded at 905 (offset -3 lines).
-Hunk #3 succeeded at 1544 (offset -3 lines).
-Hunk #4 succeeded at 1552 (offset -3 lines).
+Hunk #1 succeeded at 260 (offset -2 lines).
+Hunk #2 succeeded at 906 (offset -2 lines).
+Hunk #3 succeeded at 1545 (offset -2 lines).
+Hunk #4 succeeded at 1553 (offset -2 lines).
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
@@ -92,33 +92,28 @@ The text leading up to this was:
 |+++ qmail-1.03/spawn.c	Tue Jul 27 12:25:14 1999
 --------------------------
 Patching file spawn.c using Plan A...
-Hunk #1 succeeded at 64 (offset 1 line).
-Hunk #2 succeeded at 74 (offset 1 line).
-Hunk #3 succeeded at 157 (offset 1 line).
-Hunk #4 succeeded at 206 (offset 1 line).
-Hunk #5 succeeded at 242 (offset 1 line).
+Hunk #1 succeeded at 63.
+Hunk #2 succeeded at 73.
+Hunk #3 succeeded at 156.
+Hunk #4 succeeded at 203 (offset -2 lines).
+Hunk #5 succeeded at 239 (offset -2 lines).
 Hmm...  Ignoring the trailing garbage.
 done
-make -C notqmail-e77f33bd5f614e967b0716a72dd706462d36a477-big-concurrency it
-( cat warn-auto.sh;  echo CC=\'`head -1 conf-cc`\';  echo LD=\'`head -1 conf-ld`\'  ) > auto-ccld.sh
+make -C notqmail-8c53cd40a3329d682a905decb1f8734fa1ba2e9a-big-concurrency it
+( cat warn-auto.sh;  echo CC=\'`head -n 1 conf-cc`\';  echo LD=\'`head -n 1 conf-ld`\'  ) > auto-ccld.sh
 cat auto-ccld.sh make-load.sh > make-load
 chmod 755 make-load
 ( cat warn-auto.sh; ./make-load ) > load
 chmod 755 load
 cat auto-ccld.sh make-compile.sh > make-compile
 chmod 755 make-compile
-( cat warn-auto.sh; ./make-compile ) >  compile
+( cat warn-auto.sh; ./make-compile ) > compile
 chmod 755 compile
 ./compile qmail-local.c
-qmail-local.c: In function 'main':
-qmail-local.c:448: warning: return type of 'main' is not 'int'
 ./compile qmail.c
 ( ( ./compile chkbiofl.c  && ./load chkbiofl &&  ./chkbiofl ) >/dev/null 2>&1  && cat oflops_bi.h || cat oflops_compat.h ) > oflops.h
 rm -f chkbiofl.o chkbiofl
 ./compile quote.c
-./compile now.c
-now.c: In function 'now':
-now.c:7: warning: passing argument 1 of 'time' from incompatible pointer type
 ./compile gfrom.c
 ./compile myctime.c
 ./compile slurpclose.c
@@ -159,11 +154,6 @@ rm -f trysgact.o trysgact
 ./compile open_trunc.c
 ./compile open_write.c
 ./makelib open.a open_append.o open_excl.o open_read.o  open_trunc.o open_write.o
-./compile seek_cur.c
-./compile seek_end.c
-./compile seek_set.c
-./compile seek_trunc.c
-./makelib seek.a seek_cur.o seek_end.o seek_set.o  seek_trunc.o
 ( ( ./compile tryflock.c && ./load tryflock ) >/dev/null  2>&1  && echo \#define HASFLOCK 1 || exit 0 ) > hasflock.h
 rm -f tryflock.o tryflock
 ./compile lock_ex.c
@@ -191,9 +181,6 @@ rm -f trywaitp.o trywaitp
 ./compile stralloc_catb.c
 ./compile stralloc_arts.c
 ./makelib stralloc.a stralloc_eady.o stralloc_pend.o  stralloc_copy.o stralloc_opys.o stralloc_opyb.o  stralloc_cat.o stralloc_cats.o stralloc_catb.o  stralloc_arts.o
-./compile alloc.c
-./compile alloc_re.c
-./makelib alloc.a alloc.o alloc_re.o
 ./compile strerr_sys.c
 ./compile strerr_die.c
 ./makelib strerr.a strerr_sys.o strerr_die.o
@@ -201,33 +188,24 @@ rm -f trywaitp.o trywaitp
 ./compile substdi.c
 ./compile substdo.c
 ./compile subfderr.c
-subfderr.c:6: warning: initialization from incompatible pointer type
 ./compile subfdout.c
-subfdout.c:6: warning: initialization from incompatible pointer type
 ./compile subfdouts.c
-subfdouts.c:6: warning: initialization from incompatible pointer type
 ./compile subfdin.c
 ./compile subfdins.c
 ./compile substdio_copy.c
 ./makelib substdio.a substdio.o substdi.o substdo.o  subfderr.o subfdout.o subfdouts.o subfdin.o subfdins.o  substdio_copy.o
-./compile error.c
 ./compile error_str.c
 ./compile error_temp.c
-./makelib error.a error.o error_str.o error_temp.o
-./compile str_len.c
-./compile str_diff.c
-./compile str_diffn.c
-./compile str_cpy.c
+./makelib error.a error_str.o error_temp.o
 ./compile str_chr.c
 ./compile str_rchr.c
 ./compile str_start.c
 ./compile byte_chr.c
 ./compile byte_rchr.c
-./compile byte_diff.c
 ./compile byte_copy.c
 ./compile byte_cr.c
 ./compile byte_zero.c
-./makelib str.a str_len.o str_diff.o str_diffn.o str_cpy.o  str_chr.o str_rchr.o str_start.o byte_chr.o byte_rchr.o  byte_diff.o byte_copy.o byte_cr.o byte_zero.o
+./makelib str.a  str_chr.o str_rchr.o str_start.o byte_chr.o byte_rchr.o  byte_copy.o byte_cr.o byte_zero.o
 ./compile fmt_str.c
 ./compile fmt_strn.c
 ./compile fmt_uint.c
@@ -240,37 +218,26 @@ subfdouts.c:6: warning: initialization from incompatible pointer type
 ./compile datetime_un.c
 ./makelib datetime.a datetime.o datetime_un.o
 ./compile auto-str.c
-auto-str.c:6: warning: initialization from incompatible pointer type
-auto-str.c:9: warning: conflicting types for built-in function 'puts'
-auto-str.c: In function 'main':
-auto-str.c:17: warning: return type of 'main' is not 'int'
+auto-str.c:10: warning: conflicting types for built-in function 'puts'
 ./load auto-str substdio.a error.a str.a 
-./auto-str auto_qmail `head -1 conf-qmail` > auto_qmail.c
+./auto-str auto_qmail `head -n 1 conf-qmail` > auto_qmail.c
 ./compile auto_qmail.c
 ./compile auto-int8.c
-auto-int8.c:8: warning: initialization from incompatible pointer type
 auto-int8.c:11: warning: conflicting types for built-in function 'puts'
-auto-int8.c: In function 'main':
-auto-int8.c:19: warning: return type of 'main' is not 'int'
 ./load auto-int8 substdio.a error.a str.a fs.a 
-./auto-int8 auto_patrn `head -1 conf-patrn` > auto_patrn.c
+./auto-int8 auto_patrn `head -n 1 conf-patrn` > auto_patrn.c
 ./compile auto_patrn.c
 ( ( ./compile trylsock.c &&  ./load trylsock -lsocket -lnsl ) >/dev/null 2>&1  && echo -lsocket -lnsl || exit 0 ) > socket.lib
 rm -f trylsock.o trylsock
-./load qmail-local qmail.o quote.o now.o gfrom.o myctime.o  slurpclose.o case.a getln.a getopt.a sig.a open.a seek.a  lock.a fd.a wait.a env.a stralloc.a alloc.a strerr.a  substdio.a error.a str.a fs.a datetime.a auto_qmail.o  auto_patrn.o  `cat socket.lib`
+./load qmail-local qmail.o quote.o gfrom.o myctime.o  slurpclose.o case.a getln.a getopt.a sig.a open.a  lock.a fd.a wait.a env.a stralloc.a strerr.a  substdio.a error.a str.a fs.a datetime.a auto_qmail.o  auto_patrn.o  `cat socket.lib`
 ./compile qmail-lspawn.c
 ( ./compile trysysel.c >/dev/null 2>&1  && cat select.h2 || cat select.h1 ) > select.h
 rm -f trysysel.o trysysel
 ./compile chkspawn.c
-chkspawn.c: In function 'main':
-chkspawn.c:12: warning: return type of 'main' is not 'int'
 ./compile auto-int.c
-auto-int.c:8: warning: initialization from incompatible pointer type
 auto-int.c:11: warning: conflicting types for built-in function 'puts'
-auto-int.c: In function 'main':
-auto-int.c:19: warning: return type of 'main' is not 'int'
 ./load auto-int substdio.a error.a str.a fs.a 
-./auto-int auto_spawn `head -1 conf-spawn` > auto_spawn.c
+./auto-int auto_spawn `head -n 1 conf-spawn` > auto_spawn.c
 ./compile auto_spawn.c
 ./load chkspawn substdio.a error.a str.a fs.a auto_spawn.o 
 ./chkspawn
@@ -278,5 +245,5 @@ Oops. Your system's FD_SET() has a hidden limit of 1024 descriptors.
 This means that the qmail daemons could crash if you set the run-time
 concurrency higher than 509. So I'm going to insist that the concurrency
 limit in conf-spawn be at most 509. Right now it's 1000.
-*** Error 1 in notqmail-e77f33bd5f614e967b0716a72dd706462d36a477-big-concurrency (Makefile:1815 'spawn.o')
+*** Error 1 in notqmail-8c53cd40a3329d682a905decb1f8734fa1ba2e9a-big-concurrency (Makefile:1702 'spawn.o')
 *** Error 2 in . (Makefile:26 'build')

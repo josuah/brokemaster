@@ -1,9 +1,9 @@
-rm -rf notqmail-e77f33bd5f614e967b0716a72dd706462d36a477-big-todo
-git -C notqmail.git fetch origin e77f33bd5f614e967b0716a72dd706462d36a477
+rm -rf notqmail-8c53cd40a3329d682a905decb1f8734fa1ba2e9a-big-todo
+git -C notqmail.git fetch origin 8c53cd40a3329d682a905decb1f8734fa1ba2e9a
 From https://github.com/notqmail/notqmail
- * branch            e77f33bd5f614e967b0716a72dd706462d36a477 -> FETCH_HEAD
-git -C notqmail.git archive --prefix=notqmail-e77f33bd5f614e967b0716a72dd706462d36a477-big-todo/ e77f33bd5f614e967b0716a72dd706462d36a477 | tar xf -
-cd notqmail-e77f33bd5f614e967b0716a72dd706462d36a477-big-todo; patch -f -p 1 <../patch/big-todo.patch
+ * branch            8c53cd40a3329d682a905decb1f8734fa1ba2e9a -> FETCH_HEAD
+git -C notqmail.git archive --prefix=notqmail-8c53cd40a3329d682a905decb1f8734fa1ba2e9a-big-todo/ 8c53cd40a3329d682a905decb1f8734fa1ba2e9a | tar xf -
+cd notqmail-8c53cd40a3329d682a905decb1f8734fa1ba2e9a-big-todo; patch -f -p 1 <../patch/big-todo.patch
 Hmm...  Looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
@@ -33,7 +33,7 @@ The text leading up to this was:
 |+++ ./qmail-clean.c	Thu Jul 10 16:20:33 1997
 --------------------------
 Patching file qmail-clean.c using Plan A...
-Hunk #1 succeeded at 73.
+Hunk #1 succeeded at 74 (offset 1 line).
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
@@ -42,7 +42,7 @@ The text leading up to this was:
 |+++ ./hier.c	Tue Jul  8 13:40:50 1997
 --------------------------
 Patching file hier.c using Plan A...
-Hunk #1 succeeded at 55 with fuzz 1 (offset -45 lines).
+Hunk #1 succeeded at 37 with fuzz 1 (offset -63 lines).
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
@@ -51,7 +51,7 @@ The text leading up to this was:
 |+++ ./qmail-queue.c	Tue Jul  8 13:33:17 1997
 --------------------------
 Patching file qmail-queue.c using Plan A...
-Hunk #1 succeeded at 190 with fuzz 2 (offset 10 lines).
+Hunk #1 succeeded at 191 with fuzz 2 (offset 11 lines).
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
@@ -60,9 +60,9 @@ The text leading up to this was:
 |+++ ./qmail-send.c	Wed Jul  9 02:04:09 1997
 --------------------------
 Patching file qmail-send.c using Plan A...
-Hunk #1 succeeded at 96 (offset -5 lines).
+Hunk #1 succeeded at 97 (offset -4 lines).
 Hunk #2 succeeded at 1218 (offset -24 lines).
-Hunk #3 succeeded at 1246 (offset -5 lines).
+Hunk #3 succeeded at 1247 (offset -4 lines).
 Hunk #4 succeeded at 1239 (offset -24 lines).
 Hunk #5 failed at 1256.
 Hunk #6 failed at 1267.
@@ -76,4 +76,4 @@ The text leading up to this was:
 Patching file qmail-qstat.sh using Plan A...
 Hunk #1 succeeded at 1 with fuzz 1 (offset -2 lines).
 done
-*** Error 1 in . (Makefile:33 'notqmail-e77f33bd5f614e967b0716a72dd706462d36a477-big-todo')
+*** Error 1 in . (Makefile:33 'notqmail-8c53cd40a3329d682a905decb1f8734fa1ba2e9a-big-todo')

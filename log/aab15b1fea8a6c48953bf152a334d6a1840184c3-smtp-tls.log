@@ -7,177 +7,127 @@ cd notqmail-aab15b1fea8a6c48953bf152a334d6a1840184c3-smtp-tls; patch -f -p 1 <..
 Hmm...  Looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
-|Frederik Vermeulen <qmail-tls akrul inoa.net> 20200107
-|http://inoa.net/qmail-tls/
-|
-|This patch implements RFC 3207 in qmail. 
-|This means you can get SSL or TLS encrypted and 
-|authenticated SMTP between the MTAs and from MUA to MTA. 
-|The code is considered experimental (but has worked for
-|many since its first release on 1999-03-21).
-|
-|Usage: - install OpenSSL-1.1.0 http://www.openssl.org/ or later
-|         (any version since 0.9.8 is presumed to work)
-|       - apply patch to netqmail-1.06 http://www.usenix.org.uk/mirrors/qmail/netqmail
-|         The patches to qmail-remote.c and qmail-smtpd.c can be applied 
-|         separately.
-|       - provide a server certificate in /var/qmail/control/servercert.pem.
-|         "make cert" makes a self-signed certificate.
-|         "make cert-req" makes a certificate request.
-|         Note: you can add the CA certificate and intermediate
-|         certs to the end of servercert.pem.
-|       - replace qmail-smtpd and/or qmail-remote binary
-|       - verify operation (header information should show
-|         something like
-|         "Received [..] with (DHE-RSA-AES256-SHA encrypted) SMTP;")
-|
-|Optional: - when DEBUG is defined, some extra TLS info will be logged
-|          - qmail-remote will authenticate with the certificate in
-|            /var/qmail/control/clientcert.pem. By preference this is
-|            the same as servercert.pem, where nsCertType should be 
-|            == server,client or be a generic certificate (no usage specified). 
-|          - when a 2048 bit RSA key is provided in /var/qmail/control/rsa2048.pem,
-|            this key will be used instead of (slow) on-the-fly generation by
-|            qmail-smtpd. Idem for 2048 DH param in control/dh2048.pem.
-|            `make tmprsadh` does this.
-|            Periodical replacement can be done by crontab:
-|            01 01 * * * /var/qmail/bin/update_tmprsadh > /dev/null 2>&1
-|          - server authentication:
-|            qmail-remote requires authentication from servers for which
-|            /var/qmail/control/tlshosts/host.dom.ain.pem exists.
-|            The .pem file contains the validating CA certificates.
-|            One of the dNSName or the CommonName attributes have to match.
-|            WARNING: this option may cause mail to be delayed, bounced,
-|            doublebounced, and lost.
-|            If /var/qmail/control/tlshosts/exhaustivelist is present,
-|            the lists of hosts in /var/qmail/control/tlshosts is
-|            an exhaustive list of hosts TLS is tried on.
-|            If /var/qmail/control/notlshosts/host.dom.ain is present,
-|            no TLS is tried on this host.
-|          - client authentication:
-|            when relay rules would reject an incoming mail, 
-|            qmail-smtpd can allow the mail based on a presented cert.
-|            Certs are verified against a CA list in 
-|            /var/qmail/control/clientca.pem (eg. from
-|            http://curl.haxx.se/ca/cacert.pem)
-|            and the cert email-address has to match a line in
-|            /var/qmail/control/tlsclients. This email-address is logged
-|            in the headers. CRLs can be provided through 
-|            /var/qmail/control/clientcrl.pem.
-|          - cipher selection:
-|            qmail-remote: 
-|              openssl cipher string (`man ciphers`) read from 
-|              /var/qmail/control/tlsclientciphers
-|            qmail-smtpd: 
-|              openssl cipher string read from TLSCIPHERS environment variable
-|              (can vary based on client IP address e.g.)
-|              or if that is not available /var/qmail/control/tlsserverciphers
-|          - smtps (deprecated SMTP over TLS via port 465):
-|            qmail-remote: when connecting to port 465 
-|            qmail-smtpd: when SMTPS environment variable is not empty
-|
-|Caveats: - do a `make clean` after patching
-|         - binaries dynamically linked with current openssl versions need
-|           recompilation when the shared openssl libs are upgraded.
-|         - this patch could conflict with other patches (notably those
-|           replacing \n with \r\n, which is a bad idea on encrypted links).
-|         - needs working /dev/urandom (or EGD for openssl versions >0.9.7)
-|           for seeding random number generator.
-|         - packagers should make sure that installing without a valid 
-|           servercert is impossible
-|         - when applied in combination with AUTH patch, AUTH patch
-|           should be applied first and first part of this patch
-|           will fail. This error can be ignored. Packagers should
-|           cut the first 12 lines of this patch to make a happy
-|           patch
-|         - `make tmprsadh` is recommended (or should I say required), 
-|           otherwise DH generation can be unpredictably slow
-|         - some need "-I/usr/kerberos/include" to be added in conf-cc
-|
-|Copyright: GPL
-|           Links with OpenSSL
-|           Inspiration and code from examples in SSLeay (E. Young
-|           <eay@cryptsoft.com> and T. Hudson <tjh@cryptsoft.com>),
-|           stunnel (M. Trojnara <mtrojnar@ddc.daewoo.com.pl>),
-|           Postfix/TLS (L. Jaenicke <Lutz.Jaenicke@aet.tu-cottbus.de>),
-|           modssl (R. Engelschall <rse@engelschall.com>),
-|           openssl examples of E. Rescorla <ekr@rtfm.com>.
-|
-|Bug reports: mailto:<qmail-tls akrul inoa.net>
-|
-|
-|>----< Cut the next 12 lines if applying over AUTH server patch >---<
-|--- qmail-1.03/qmail-smtpd.c	Mon Jun 15 03:53:16 1998
-|+++ qmail-1.03-tls/qmail-smtpd.c	Tue Jun 18 09:49:38 2002
+|diff --git a/Makefile b/Makefile
+|index f227675..a777510 100644
+|--- a/Makefile
+|+++ b/Makefile
 --------------------------
-Patching file qmail-smtpd.c using Plan A...
-Hunk #1 succeeded at 229 with fuzz 1.
+Patching file Makefile using Plan A...
+Hunk #1 succeeded at 852 with fuzz 2 (offset 71 lines).
+Hunk #2 failed at 1431.
+Hunk #3 failed at 1526.
+Hunk #4 succeeded at 2022 with fuzz 1 (offset 127 lines).
+Hunk #5 succeeded at 2019 (offset 71 lines).
+2 out of 5 hunks failed--saving rejects to Makefile.rej
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
-|>----< Cut previous 12 lines if applying over AUTH server patch >---<
-|
-|
-|
-|>----< The next 89 lines are the qmail-remote EHLO patch >---<
-|--- qmail-1.03/qmail-remote.c	Mon Jun 15 03:53:16 1998
-|+++ qmail-1.03-tls/qmail-remote.c	Sun Nov 24 13:05:20 2002
+|diff --git a/Makefile-cert.mk b/Makefile-cert.mk
+|new file mode 100644
+|index 0000000..52d0f5d
+|--- /dev/null
+|+++ b/Makefile-cert.mk
+--------------------------
+(Creating file Makefile-cert.mk...)
+Patching file Makefile-cert.mk using Plan A...
+Empty context always matches.
+Hunk #1 succeeded at 1.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff --git a/TARGETS b/TARGETS
+|index 6ebd7cd..c6779c7 100644
+|--- a/TARGETS
+|+++ b/TARGETS
+--------------------------
+Patching file TARGETS using Plan A...
+Hunk #1 succeeded at 191 (offset 23 lines).
+Hunk #2 succeeded at 322 (offset 8 lines).
+Hunk #3 succeeded at 386 with fuzz 2 (offset 8 lines).
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff --git a/dns.c b/dns.c
+|index a9ba96b..e8cd75a 100644
+|--- a/dns.c
+|+++ b/dns.c
+--------------------------
+Patching file dns.c using Plan A...
+Hunk #1 succeeded at 270 with fuzz 1 (offset 13 lines).
+Hunk #2 succeeded at 296 with fuzz 2 (offset 13 lines).
+Hunk #3 succeeded at 325 (offset 13 lines).
+Hunk #4 succeeded at 337 (offset 13 lines).
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff --git a/hier.c b/hier.c
+|index 00ca66f..3883843 100644
+|--- a/hier.c
+|+++ b/hier.c
+--------------------------
+Patching file hier.c using Plan A...
+Hunk #1 failed at 144.
+1 out of 1 hunks failed--saving rejects to hier.c.rej
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff --git a/ipalloc.h b/ipalloc.h
+|index ad61475..627c8e1 100644
+|--- a/ipalloc.h
+|+++ b/ipalloc.h
+--------------------------
+Patching file ipalloc.h using Plan A...
+Hunk #1 succeeded at 3.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff --git a/qmail-control.9 b/qmail-control.9
+|index 503ce93..945f15f 100644
+|--- a/qmail-control.9
+|+++ b/qmail-control.9
+--------------------------
+Patching file qmail-control.9 using Plan A...
+Hunk #1 succeeded at 43.
+Hunk #2 succeeded at 64.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff --git a/qmail-remote.8 b/qmail-remote.8
+|index e38d169..22261bf 100644
+|--- a/qmail-remote.8
+|+++ b/qmail-remote.8
+--------------------------
+Patching file qmail-remote.8 using Plan A...
+Hunk #1 succeeded at 114 (offset -7 lines).
+Hunk #2 succeeded at 127 (offset -7 lines).
+Hunk #3 succeeded at 170 (offset -7 lines).
+Hunk #4 succeeded at 211 (offset -7 lines).
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff --git a/qmail-remote.c b/qmail-remote.c
+|index cadb9dd..4d216cf 100644
+|--- a/qmail-remote.c
+|+++ b/qmail-remote.c
 --------------------------
 Patching file qmail-remote.c using Plan A...
-Hunk #1 succeeded at 163.
-Hunk #2 succeeded at 277.
+Hunk #1 succeeded at 48 with fuzz 1.
+Hunk #2 succeeded at 108.
+Hunk #3 failed at 117.
+Hunk #4 succeeded at 193 (offset 12 lines).
+Hunk #5 succeeded at 268 (offset 12 lines).
+Hunk #6 succeeded at 283 (offset 12 lines).
+Hunk #7 succeeded at 323 (offset -10 lines).
+Hunk #8 succeeded at 555 (offset 12 lines).
+Hunk #9 succeeded at 762 (offset 9 lines).
+1 out of 9 hunks failed--saving rejects to qmail-remote.c.rej
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
-|>----< Previous 89 lines are the qmail-remote EHLO patch >---<
-|
-|
-|
-|--- qmail-1.03/qmail-smtpd.c	Mon Jun 15 03:53:16 1998
-|+++ qmail-1.03-tls/qmail-smtpd.c	Mon Jul  1 10:47:54 2002
---------------------------
-Patching file qmail-smtpd.c using Plan A...
-Hunk #1 succeeded at 227.
-Hunk #2 succeeded at 232.
-Hmm...  The next patch looks like a unified diff to me...
-The text leading up to this was:
---------------------------
-|--- netqmail-1.06-orig/qmail-smtpd.c	2020-01-07 10:27:08.927951519 +0000
-|+++ netqmail-1.06/qmail-smtpd.c	2019-05-17 12:38:07.450322978 +0000
---------------------------
-Patching file qmail-smtpd.c using Plan A...
-Hunk #1 succeeded at 28.
-Hunk #2 succeeded at 68.
-Hunk #3 succeeded at 158.
-Hunk #4 succeeded at 245.
-Hunk #5 succeeded at 265.
-Hunk #6 succeeded at 313.
-Hunk #7 succeeded at 326.
-Hunk #8 succeeded at 430.
-Hunk #9 succeeded at 446.
-Hunk #10 succeeded at 720.
-Hmm...  The next patch looks like a unified diff to me...
-The text leading up to this was:
---------------------------
-|--- netqmail-1.06-orig/qmail-remote.c	2020-01-07 10:27:08.927951519 +0000
-|+++ netqmail-1.06/qmail-remote.c	2019-11-14 09:25:07.561610517 +0000
---------------------------
-Patching file qmail-remote.c using Plan A...
-Hunk #1 succeeded at 48.
-Hunk #2 succeeded at 110.
-Hunk #3 succeeded at 124.
-Hunk #4 succeeded at 137.
-Hunk #5 succeeded at 220.
-Hunk #6 succeeded at 264.
-Hunk #7 succeeded at 282.
-Hunk #8 succeeded at 334.
-Hunk #9 succeeded at 545.
-Hunk #10 succeeded at 780.
-Hmm...  The next patch looks like a unified diff to me...
-The text leading up to this was:
---------------------------
-|--- netqmail-1.06-orig/qmail-smtpd.8	1998-06-15 10:53:16.000000000 +0000
-|+++ netqmail-1.06/qmail-smtpd.8	2016-09-18 09:51:27.707704853 +0000
+|diff --git a/qmail-smtpd.8 b/qmail-smtpd.8
+|index 4eeae49..2463768 100644
+|--- a/qmail-smtpd.8
+|+++ b/qmail-smtpd.8
 --------------------------
 Patching file qmail-smtpd.8 using Plan A...
 Hunk #1 succeeded at 14.
@@ -188,75 +138,56 @@ Hunk #5 succeeded at 212.
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
-|--- netqmail-1.06-orig/qmail-remote.8	1998-06-15 10:53:16.000000000 +0000
-|+++ netqmail-1.06/qmail-remote.8	2015-12-01 15:54:59.029940779 +0000
+|diff --git a/qmail-smtpd.c b/qmail-smtpd.c
+|index 23e0bc3..9215542 100644
+|--- a/qmail-smtpd.c
+|+++ b/qmail-smtpd.c
 --------------------------
-Patching file qmail-remote.8 using Plan A...
-Hunk #1 succeeded at 114.
-Hunk #2 succeeded at 127.
-Hunk #3 succeeded at 170.
-Hunk #4 succeeded at 211.
+Patching file qmail-smtpd.c using Plan A...
+Hunk #1 failed at 29.
+Hunk #2 succeeded at 65 with fuzz 1 (offset 5 lines).
+Hunk #3 succeeded at 151 (offset 5 lines).
+Hunk #4 succeeded at 236 (offset 5 lines).
+Hunk #5 succeeded at 251 (offset 5 lines).
+Hunk #6 succeeded at 291 with fuzz 2 (offset 1 line).
+Hunk #7 failed at 302.
+Hunk #8 succeeded at 408 (offset 5 lines).
+Hunk #9 succeeded at 429 (offset 1 line).
+2 out of 9 hunks failed--saving rejects to qmail-smtpd.c.rej
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
-|--- netqmail-1.06-orig/qmail-control.9	1998-06-15 10:53:16.000000000 +0000
-|+++ netqmail-1.06/qmail-control.9	2015-12-08 00:33:06.248714330 +0000
+|diff --git a/ssl-smtpd.c b/ssl-smtpd.c
+|new file mode 100644
+|index 0000000..b1d6c9c
+|--- /dev/null
+|+++ b/ssl-smtpd.c
 --------------------------
-Patching file qmail-control.9 using Plan A...
-Hunk #1 succeeded at 43.
-Hunk #2 succeeded at 64.
-Hmm...  The next patch looks like a unified diff to me...
-The text leading up to this was:
---------------------------
-|--- netqmail-1.06-orig/dns.c	2007-11-30 20:22:54.000000000 +0000
-|+++ netqmail-1.06/dns.c	2019-04-08 15:22:04.390598941 +0000
---------------------------
-Patching file dns.c using Plan A...
-Hunk #1 succeeded at 270 (offset 3 lines).
-Hunk #2 succeeded at 296 (offset 3 lines).
-Hunk #3 succeeded at 325 (offset 3 lines).
-Hunk #4 succeeded at 337 (offset 3 lines).
-Hmm...  The next patch looks like a unified diff to me...
-The text leading up to this was:
---------------------------
-|--- netqmail-1.06-orig/hier.c	1998-06-15 10:53:16.000000000 +0000
-|+++ netqmail-1.06/hier.c	2015-12-01 15:54:59.033940812 +0000
---------------------------
-Patching file hier.c using Plan A...
-Hunk #1 succeeded at 143.
-Hmm...  The next patch looks like a unified diff to me...
-The text leading up to this was:
---------------------------
-|--- netqmail-1.06-orig/ipalloc.h	1998-06-15 10:53:16.000000000 +0000
-|+++ netqmail-1.06/ipalloc.h	2015-12-01 15:54:59.033940812 +0000
---------------------------
-Patching file ipalloc.h using Plan A...
-Hunk #1 succeeded at 3.
-Hmm...  The next patch looks like a unified diff to me...
-The text leading up to this was:
---------------------------
-|--- netqmail-1.06-orig/tls.c	2020-01-07 10:27:08.931951527 +0000
-|+++ netqmail-1.06/tls.c	2019-04-08 15:17:31.924930725 +0000
---------------------------
-(Creating file tls.c...)
-Patching file tls.c using Plan A...
+(Creating file ssl-smtpd.c...)
+Patching file ssl-smtpd.c using Plan A...
 Empty context always matches.
 Hunk #1 succeeded at 1.
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
-|--- netqmail-1.06-orig/tls.h	2020-01-07 10:27:08.931951527 +0000
-|+++ netqmail-1.06/tls.h	2015-12-01 15:54:59.033940812 +0000
+|diff --git a/ssl-smtpd.h b/ssl-smtpd.h
+|new file mode 100644
+|index 0000000..4158dd4
+|--- /dev/null
+|+++ b/ssl-smtpd.h
 --------------------------
-(Creating file tls.h...)
-Patching file tls.h using Plan A...
+(Creating file ssl-smtpd.h...)
+Patching file ssl-smtpd.h using Plan A...
 Empty context always matches.
 Hunk #1 succeeded at 1.
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
-|--- netqmail-1.06-orig/ssl_timeoutio.c	2020-01-07 10:27:08.931951527 +0000
-|+++ netqmail-1.06/ssl_timeoutio.c	2020-01-07 10:04:16.529224478 +0000
+|diff --git a/ssl_timeoutio.c b/ssl_timeoutio.c
+|new file mode 100644
+|index 0000000..d0cbea5
+|--- /dev/null
+|+++ b/ssl_timeoutio.c
 --------------------------
 (Creating file ssl_timeoutio.c...)
 Patching file ssl_timeoutio.c using Plan A...
@@ -265,8 +196,11 @@ Hunk #1 succeeded at 1.
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
-|--- netqmail-1.06-orig/ssl_timeoutio.h	2020-01-07 10:27:08.931951527 +0000
-|+++ netqmail-1.06/ssl_timeoutio.h	2019-03-22 21:11:16.610440636 +0000
+|diff --git a/ssl_timeoutio.h b/ssl_timeoutio.h
+|new file mode 100644
+|index 0000000..5efe07d
+|--- /dev/null
+|+++ b/ssl_timeoutio.h
 --------------------------
 (Creating file ssl_timeoutio.h...)
 Patching file ssl_timeoutio.h using Plan A...
@@ -275,57 +209,41 @@ Hunk #1 succeeded at 1.
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
-|--- netqmail-1.06-orig/TARGETS	1998-06-15 10:53:16.000000000 +0000
-|+++ netqmail-1.06/TARGETS	2015-12-01 15:54:59.033940812 +0000
+|diff --git a/tls.c b/tls.c
+|new file mode 100644
+|index 0000000..aed5d57
+|--- /dev/null
+|+++ b/tls.c
 --------------------------
-Patching file TARGETS using Plan A...
-Hunk #1 succeeded at 191 (offset 23 lines).
-Hunk #2 failed at 345.
-No such line 409 in input file, ignoring
-Hunk #3 succeeded at 386 with fuzz 1 (offset -2 lines).
-1 out of 3 hunks failed--saving rejects to TARGETS.rej
-Hmm...  The next patch looks like a unified diff to me...
-The text leading up to this was:
---------------------------
-|--- netqmail-1.06-orig/Makefile-cert.mk	2020-01-07 10:27:08.931951527 +0000
-|+++ netqmail-1.06/Makefile-cert.mk	2015-12-01 15:54:59.033940812 +0000
---------------------------
-(Creating file Makefile-cert.mk...)
-Patching file Makefile-cert.mk using Plan A...
+(Creating file tls.c...)
+Patching file tls.c using Plan A...
 Empty context always matches.
 Hunk #1 succeeded at 1.
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
-|--- netqmail-1.06-orig/conf-cc	1998-06-15 10:53:16.000000000 +0000
-|+++ netqmail-1.06/conf-cc	2020-01-07 10:15:59.770628786 +0000
+|diff --git a/tls.h b/tls.h
+|new file mode 100644
+|index 0000000..4781e7d
+|--- /dev/null
+|+++ b/tls.h
 --------------------------
-Patching file conf-cc using Plan A...
+(Creating file tls.h...)
+Patching file tls.h using Plan A...
+Empty context always matches.
 Hunk #1 succeeded at 1.
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
-|--- netqmail-1.06-orig/Makefile	2007-11-30 20:22:54.000000000 +0000
-|+++ netqmail-1.06/Makefile	2015-12-01 15:54:59.033940812 +0000
---------------------------
-Patching file Makefile using Plan A...
-Hunk #1 succeeded at 852 with fuzz 2 (offset 44 lines).
-Hunk #2 succeeded at 1451 (offset 7 lines).
-Hunk #3 succeeded at 1586 (offset 46 lines).
-Hunk #4 failed at 1875.
-No such line 2153 in input file, ignoring
-Hunk #5 succeeded at 2048 (offset -63 lines).
-Hunk #6 succeeded at 2205 (offset 50 lines).
-1 out of 6 hunks failed--saving rejects to Makefile.rej
-Hmm...  The next patch looks like a unified diff to me...
-The text leading up to this was:
---------------------------
-|--- netqmail-1.06-orig/update_tmprsadh.sh	2020-01-07 10:27:08.931951527 +0000
-|+++ netqmail-1.06/update_tmprsadh.sh	2015-12-08 00:32:33.936474103 +0000
+|diff --git a/update_tmprsadh.sh b/update_tmprsadh.sh
+|new file mode 100644
+|index 0000000..227b59e
+|--- /dev/null
+|+++ b/update_tmprsadh.sh
 --------------------------
 (Creating file update_tmprsadh.sh...)
 Patching file update_tmprsadh.sh using Plan A...
 Empty context always matches.
 Hunk #1 succeeded at 1.
 done
-*** Error 1 in . (Makefile:36 'notqmail-aab15b1fea8a6c48953bf152a334d6a1840184c3-smtp-tls')
+*** Error 1 in . (Makefile:33 'notqmail-aab15b1fea8a6c48953bf152a334d6a1840184c3-smtp-tls')

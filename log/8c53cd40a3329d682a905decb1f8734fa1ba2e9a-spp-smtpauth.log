@@ -1,9 +1,9 @@
-rm -rf notqmail-aab15b1fea8a6c48953bf152a334d6a1840184c3-spp-smtpauth
-git -C notqmail.git fetch origin aab15b1fea8a6c48953bf152a334d6a1840184c3
+rm -rf notqmail-8c53cd40a3329d682a905decb1f8734fa1ba2e9a-spp-smtpauth
+git -C notqmail.git fetch origin 8c53cd40a3329d682a905decb1f8734fa1ba2e9a
 From https://github.com/notqmail/notqmail
- * branch            aab15b1fea8a6c48953bf152a334d6a1840184c3 -> FETCH_HEAD
-git -C notqmail.git archive --prefix=notqmail-aab15b1fea8a6c48953bf152a334d6a1840184c3-spp-smtpauth/ aab15b1fea8a6c48953bf152a334d6a1840184c3 | tar xf -
-cd notqmail-aab15b1fea8a6c48953bf152a334d6a1840184c3-spp-smtpauth; patch -f -p 1 <../patch/spp-smtpauth.patch
+ * branch            8c53cd40a3329d682a905decb1f8734fa1ba2e9a -> FETCH_HEAD
+git -C notqmail.git archive --prefix=notqmail-8c53cd40a3329d682a905decb1f8734fa1ba2e9a-spp-smtpauth/ 8c53cd40a3329d682a905decb1f8734fa1ba2e9a | tar xf -
+cd notqmail-8c53cd40a3329d682a905decb1f8734fa1ba2e9a-spp-smtpauth; patch -f -p 1 <../patch/spp-smtpauth.patch
 Hmm...  Looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
@@ -12,7 +12,7 @@ The text leading up to this was:
 --------------------------
 Patching file Makefile using Plan A...
 Hunk #1 failed at 1535.
-Hunk #2 succeeded at 1609 with fuzz 2 (offset 49 lines).
+Hunk #2 succeeded at 1473 with fuzz 2 (offset -87 lines).
 1 out of 2 hunks failed--saving rejects to Makefile.rej
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
@@ -22,15 +22,15 @@ The text leading up to this was:
 --------------------------
 Patching file qmail-smtpd.c using Plan A...
 Hunk #1 failed at 25.
-Hunk #2 succeeded at 114 (offset -12 lines).
-Hunk #3 failed at 223.
+Hunk #2 succeeded at 109 (offset -17 lines).
+Hunk #3 failed at 218.
 Hunk #4 succeeded at 253 with fuzz 2 (offset -8 lines).
-Hunk #5 succeeded at 269 (offset -12 lines).
-Hunk #6 succeeded at 399 (offset -8 lines).
-Hunk #7 succeeded at 403 (offset -12 lines).
-No such line 604 in input file, ignoring
-Hunk #8 failed at 623.
-Hunk #9 succeeded at 445 (offset -229 lines).
+Hunk #5 succeeded at 264 (offset -17 lines).
+Hunk #6 succeeded at 398 (offset -9 lines).
+Hunk #7 succeeded at 398 (offset -17 lines).
+No such line 599 in input file, ignoring
+Hunk #8 failed at 618.
+Hunk #9 succeeded at 444 (offset -230 lines).
 3 out of 9 hunks failed--saving rejects to qmail-smtpd.c.rej
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
@@ -53,4 +53,4 @@ Patching file qmail-spp.h using Plan A...
 Empty context always matches.
 Hunk #1 succeeded at 1.
 done
-*** Error 1 in . (Makefile:33 'notqmail-aab15b1fea8a6c48953bf152a334d6a1840184c3-spp-smtpauth')
+*** Error 1 in . (Makefile:33 'notqmail-8c53cd40a3329d682a905decb1f8734fa1ba2e9a-spp-smtpauth')

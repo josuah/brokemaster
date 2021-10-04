@@ -53,4 +53,4 @@ Patching file qmail-spp.h using Plan A...
 Empty context always matches.
 Hunk #1 succeeded at 1.
 done
-*** Error 1 in . (Makefile:36 'notqmail-e77f33bd5f614e967b0716a72dd706462d36a477-spp-smtpauth-eh')
+*** Error 1 in . (Makefile:33 'notqmail-e77f33bd5f614e967b0716a72dd706462d36a477-spp-smtpauth-eh')

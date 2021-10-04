@@ -1,9 +1,9 @@
-rm -rf notqmail-e77f33bd5f614e967b0716a72dd706462d36a477-smtpd-logging
-git -C notqmail.git fetch origin e77f33bd5f614e967b0716a72dd706462d36a477
+rm -rf notqmail-8c53cd40a3329d682a905decb1f8734fa1ba2e9a-smtpd-logging
+git -C notqmail.git fetch origin 8c53cd40a3329d682a905decb1f8734fa1ba2e9a
 From https://github.com/notqmail/notqmail
- * branch            e77f33bd5f614e967b0716a72dd706462d36a477 -> FETCH_HEAD
-git -C notqmail.git archive --prefix=notqmail-e77f33bd5f614e967b0716a72dd706462d36a477-smtpd-logging/ e77f33bd5f614e967b0716a72dd706462d36a477 | tar xf -
-cd notqmail-e77f33bd5f614e967b0716a72dd706462d36a477-smtpd-logging; patch -f -p 1 <../patch/smtpd-logging.patch
+ * branch            8c53cd40a3329d682a905decb1f8734fa1ba2e9a -> FETCH_HEAD
+git -C notqmail.git archive --prefix=notqmail-8c53cd40a3329d682a905decb1f8734fa1ba2e9a-smtpd-logging/ 8c53cd40a3329d682a905decb1f8734fa1ba2e9a | tar xf -
+cd notqmail-8c53cd40a3329d682a905decb1f8734fa1ba2e9a-smtpd-logging; patch -f -p 1 <../patch/smtpd-logging.patch
 Hmm...  Looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
@@ -36,8 +36,9 @@ The text leading up to this was:
 |+++ netqmail-1.06_logmsg13/Makefile	2009-08-31 22:30:46.000000000 +0100
 --------------------------
 Patching file Makefile using Plan A...
-Hunk #1 succeeded at 533 (offset 25 lines).
-Hunk #2 succeeded at 1509 (offset -30 lines).
+Hunk #1 succeeded at 495 with fuzz 2 (offset -13 lines).
+Hunk #2 failed at 1526.
+1 out of 2 hunks failed--saving rejects to Makefile.rej
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
@@ -46,19 +47,19 @@ The text leading up to this was:
 |+++ netqmail-1.06_logmsg13/qmail-smtpd.c	2010-02-15 22:27:09.000000000 +0000
 --------------------------
 Patching file qmail-smtpd.c using Plan A...
-Hunk #1 succeeded at 23.
+Hunk #1 failed at 23.
 Hunk #2 failed at 61.
-Hunk #3 succeeded at 161.
-Hunk #4 succeeded at 215.
-Hunk #5 succeeded at 301.
-Hunk #6 succeeded at 346.
-Hunk #7 succeeded at 367.
-Hunk #8 succeeded at 375.
-Hunk #9 succeeded at 452.
-Hunk #10 succeeded at 467.
-Hunk #11 succeeded at 481.
-Hunk #12 succeeded at 509.
-1 out of 12 hunks failed--saving rejects to qmail-smtpd.c.rej
+Hunk #3 succeeded at 156 (offset -5 lines).
+Hunk #4 succeeded at 210 (offset -5 lines).
+Hunk #5 succeeded at 296 (offset -5 lines).
+Hunk #6 succeeded at 341 (offset -5 lines).
+Hunk #7 succeeded at 366 (offset -1 lines).
+Hunk #8 succeeded at 370 (offset -5 lines).
+Hunk #9 succeeded at 451 (offset -1 lines).
+Hunk #10 succeeded at 462 (offset -5 lines).
+Hunk #11 succeeded at 480 (offset -1 lines).
+Hunk #12 succeeded at 504 with fuzz 1 (offset -5 lines).
+2 out of 12 hunks failed--saving rejects to qmail-smtpd.c.rej
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
@@ -67,6 +68,7 @@ The text leading up to this was:
 |+++ netqmail-1.06_logmsg13/TARGETS	2009-08-31 22:30:46.000000000 +0100
 --------------------------
 Patching file TARGETS using Plan A...
-Hunk #1 succeeded at 94 (offset -2 lines).
+Hunk #1 failed at 96.
+1 out of 1 hunks failed--saving rejects to TARGETS.rej
 done
-*** Error 1 in . (Makefile:33 'notqmail-e77f33bd5f614e967b0716a72dd706462d36a477-smtpd-logging')
+*** Error 1 in . (Makefile:33 'notqmail-8c53cd40a3329d682a905decb1f8734fa1ba2e9a-smtpd-logging')

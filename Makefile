@@ -24,7 +24,7 @@ log/${COMMIT}-${PATCH}.log:
 
 build:v notqmail-${COMMIT}-${PATCH}
 	make -C notqmail-${COMMIT}-${PATCH} it
-	@echo success
+	@echo ok
 
 notqmail-${COMMIT}-${PATCH}:v notqmail.git
 	rm -rf $@
@@ -35,7 +35,7 @@ notqmail-${COMMIT}-${PATCH}:v notqmail.git
 notqmail.git:
 	git clone --bare ${GIT} $@
 
-README.md:v
+README.md:v everything
 	sh README.sh >$@
 
 brokemaster:v

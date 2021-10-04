@@ -1,9 +1,9 @@
-rm -rf notqmail-aab15b1fea8a6c48953bf152a334d6a1840184c3-smtpd-spf
-git -C notqmail.git fetch origin aab15b1fea8a6c48953bf152a334d6a1840184c3
+rm -rf notqmail-8c53cd40a3329d682a905decb1f8734fa1ba2e9a-smtpd-spf
+git -C notqmail.git fetch origin 8c53cd40a3329d682a905decb1f8734fa1ba2e9a
 From https://github.com/notqmail/notqmail
- * branch            aab15b1fea8a6c48953bf152a334d6a1840184c3 -> FETCH_HEAD
-git -C notqmail.git archive --prefix=notqmail-aab15b1fea8a6c48953bf152a334d6a1840184c3-smtpd-spf/ aab15b1fea8a6c48953bf152a334d6a1840184c3 | tar xf -
-cd notqmail-aab15b1fea8a6c48953bf152a334d6a1840184c3-smtpd-spf; patch -f -p 1 <../patch/smtpd-spf.patch
+ * branch            8c53cd40a3329d682a905decb1f8734fa1ba2e9a -> FETCH_HEAD
+git -C notqmail.git archive --prefix=notqmail-8c53cd40a3329d682a905decb1f8734fa1ba2e9a-smtpd-spf/ 8c53cd40a3329d682a905decb1f8734fa1ba2e9a | tar xf -
+cd notqmail-8c53cd40a3329d682a905decb1f8734fa1ba2e9a-smtpd-spf; patch -f -p 1 <../patch/smtpd-spf.patch
 Hmm...  Looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
@@ -23,7 +23,7 @@ The text leading up to this was:
 |+++ qmail-1.03/byte.h	2004-01-29 13:46:57.000000000 +0100
 --------------------------
 Patching file byte.h using Plan A...
-Hunk #1 succeeded at 3.
+Hunk #1 succeeded at 5 with fuzz 1 (offset 2 lines).
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
@@ -43,12 +43,14 @@ The text leading up to this was:
 |+++ qmail-1.03/dns.c	2004-10-26 20:58:14.904288016 +0200
 --------------------------
 Patching file dns.c using Plan A...
-Hunk #1 succeeded at 12 with fuzz 1 (offset 1 line).
-Hunk #2 succeeded at 31 (offset 1 line).
-Hunk #3 succeeded at 182 (offset 1 line).
-Hunk #4 succeeded at 283 (offset 1 line).
-Hunk #5 succeeded at 305 (offset 1 line).
-Hunk #6 succeeded at 469 (offset 1 line).
+Hunk #1 succeeded at 14 with fuzz 1 (offset 3 lines).
+Hunk #2 succeeded at 33 (offset 3 lines).
+Hunk #3 succeeded at 204 (offset 23 lines).
+Hunk #4 failed at 305.
+Hunk #5 failed at 327.
+No such line 420 in input file, ignoring
+Hunk #6 succeeded at 433 (offset -35 lines).
+2 out of 6 hunks failed--saving rejects to dns.c.rej
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
@@ -57,8 +59,9 @@ The text leading up to this was:
 |+++ qmail-1.03/dnsfq.c	2004-01-29 02:36:34.000000000 +0100
 --------------------------
 Patching file dnsfq.c using Plan A...
-Hunk #1 succeeded at 5.
-Hunk #2 succeeded at 29.
+Hunk #1 failed at 5.
+Hunk #2 succeeded at 26 with fuzz 2 (offset -3 lines).
+1 out of 2 hunks failed--saving rejects to dnsfq.c.rej
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
@@ -67,7 +70,7 @@ The text leading up to this was:
 |+++ qmail-1.03/dns.h	2004-01-28 17:24:01.000000000 +0100
 --------------------------
 Patching file dns.h using Plan A...
-Hunk #1 succeeded at 10.
+Hunk #1 succeeded at 9 (offset -1 lines).
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
@@ -76,7 +79,8 @@ The text leading up to this was:
 |+++ qmail-1.03/dnsptr.c	2004-01-29 02:39:09.000000000 +0100
 --------------------------
 Patching file dnsptr.c using Plan A...
-Hunk #1 succeeded at 6.
+Hunk #1 failed at 6.
+1 out of 1 hunks failed--saving rejects to dnsptr.c.rej
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
@@ -108,24 +112,25 @@ The text leading up to this was:
 |+++ qmail-1.03/Makefile	2004-02-10 13:00:35.000000000 +0100
 --------------------------
 Patching file Makefile using Plan A...
-Hunk #1 succeeded at 250 (offset 47 lines).
-Hunk #2 succeeded at 262 (offset 47 lines).
-Hunk #3 succeeded at 448 (offset 47 lines).
-Hunk #4 succeeded at 794 (offset -3 lines).
-Hunk #5 failed at 821.
-Hunk #6 succeeded at 1513 (offset 54 lines).
-Hunk #7 succeeded at 1472 (offset -3 lines).
-Hunk #8 failed at 1545.
-Hunk #9 succeeded at 1627 (offset 56 lines).
-Hunk #10 failed at 1855.
-Hunk #11 failed at 1889.
-Hunk #12 failed at 1901.
-Hunk #13 succeeded at 1845 (offset -73 lines).
-Hunk #14 succeeded at 2006 (offset 56 lines).
-Hunk #15 succeeded at 1892 (offset -73 lines).
-Hunk #16 succeeded at 2104 (offset 56 lines).
-Hunk #17 succeeded at 2040 (offset -73 lines).
-5 out of 17 hunks failed--saving rejects to Makefile.rej
+Hunk #1 failed at 203.
+Hunk #2 succeeded at 250 (offset 35 lines).
+Hunk #3 failed at 436.
+Hunk #4 failed at 832.
+Hunk #5 failed at 859.
+Hunk #6 failed at 1494.
+Hunk #7 succeeded at 1355 with fuzz 2 (offset -120 lines).
+Hunk #8 failed at 1428.
+Hunk #9 succeeded at 1608 (offset 37 lines).
+Hunk #10 failed at 1836.
+Hunk #11 failed at 1870.
+Hunk #12 failed at 1882.
+No such line 1933 in input file, ignoring
+Hunk #13 succeeded at 1686 (offset -232 lines).
+Hunk #14 failed at 1718.
+Hunk #15 failed at 1733.
+Hunk #16 succeeded at 2068 (offset 20 lines).
+Hunk #17 failed at 2133.
+12 out of 17 hunks failed--saving rejects to Makefile.rej
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
@@ -163,13 +168,13 @@ The text leading up to this was:
 |+++ qmail-1.03/qmail-smtpd.c	2004-10-26 20:59:47.563201720 +0200
 --------------------------
 Patching file qmail-smtpd.c using Plan A...
-Hunk #1 succeeded at 23.
-Hunk #2 succeeded at 63.
-Hunk #3 succeeded at 127.
-Hunk #4 succeeded at 237.
-Hunk #5 succeeded at 257.
-Hunk #6 succeeded at 430.
-Hunk #7 succeeded at 477.
+Hunk #1 succeeded at 24 with fuzz 2 (offset 1 line).
+Hunk #2 succeeded at 57 (offset -6 lines).
+Hunk #3 succeeded at 128 (offset 1 line).
+Hunk #4 succeeded at 231 (offset -6 lines).
+Hunk #5 succeeded at 258 (offset 1 line).
+Hunk #6 succeeded at 423 (offset -7 lines).
+Hunk #7 succeeded at 478 (offset 1 line).
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
@@ -222,7 +227,8 @@ The text leading up to this was:
 |+++ qmail-1.03/str.h	2004-01-28 22:41:57.000000000 +0100
 --------------------------
 Patching file str.h using Plan A...
-Hunk #1 succeeded at 2.
+Hunk #1 failed at 2.
+1 out of 1 hunks failed--saving rejects to str.h.rej
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
@@ -253,10 +259,11 @@ The text leading up to this was:
 |+++ qmail-1.03/TARGETS	2004-01-29 19:28:12.000000000 +0100
 --------------------------
 Patching file TARGETS using Plan A...
-Hunk #1 succeeded at 99 (offset -1 lines).
-Hunk #2 succeeded at 198 (offset 24 lines).
-Hunk #3 succeeded at 216 (offset -1 lines).
-Hunk #4 succeeded at 302 (offset 24 lines).
+Hunk #1 failed at 100.
+Hunk #2 succeeded at 174.
+Hunk #3 succeeded at 217.
+Hunk #4 failed at 278.
+2 out of 4 hunks failed--saving rejects to TARGETS.rej
 Hmm...  The next patch looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
@@ -265,9 +272,10 @@ The text leading up to this was:
 |+++ qmail-1.03/tcp-env.c	2004-01-29 02:44:17.000000000 +0100
 --------------------------
 Patching file tcp-env.c using Plan A...
-Hunk #1 succeeded at 10.
-Hunk #2 succeeded at 35.
-Hunk #3 succeeded at 76.
-Hunk #4 succeeded at 102.
+Hunk #1 succeeded at 11 (offset 1 line).
+Hunk #2 failed at 36.
+Hunk #3 succeeded at 74 (offset -2 lines).
+Hunk #4 succeeded at 103 (offset 1 line).
+1 out of 4 hunks failed--saving rejects to tcp-env.c.rej
 done
-*** Error 1 in . (Makefile:33 'notqmail-aab15b1fea8a6c48953bf152a334d6a1840184c3-smtpd-spf')
+*** Error 1 in . (Makefile:33 'notqmail-8c53cd40a3329d682a905decb1f8734fa1ba2e9a-smtpd-spf')

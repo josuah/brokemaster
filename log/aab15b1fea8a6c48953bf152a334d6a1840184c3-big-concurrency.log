@@ -277,4 +277,4 @@ This means that the qmail daemons could crash if you set the run-time
 concurrency higher than 509. So I'm going to insist that the concurrency
 limit in conf-spawn be at most 509. Right now it's 1000.
 *** Error 1 in notqmail-aab15b1fea8a6c48953bf152a334d6a1840184c3-big-concurrency (Makefile:1880 'spawn.o')
-*** Error 2 in . (Makefile:29 'build')
+*** Error 2 in . (Makefile:26 'build')

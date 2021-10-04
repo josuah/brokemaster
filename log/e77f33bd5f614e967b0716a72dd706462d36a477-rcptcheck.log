@@ -20,4 +20,4 @@ Hunk #6 succeeded at 223.
 Hunk #7 succeeded at 287.
 1 out of 7 hunks failed--saving rejects to qmail-smtpd.c.rej
 done
-*** Error 1 in . (Makefile:36 'notqmail-e77f33bd5f614e967b0716a72dd706462d36a477-rcptcheck')
+*** Error 1 in . (Makefile:33 'notqmail-e77f33bd5f614e967b0716a72dd706462d36a477-rcptcheck')
