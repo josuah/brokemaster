@@ -1,0 +1,108 @@
+rm -rf notqmail-e77f33bd5f614e967b0716a72dd706462d36a477-ext-todo
+git -C notqmail.git fetch origin e77f33bd5f614e967b0716a72dd706462d36a477
+From https://github.com/notqmail/notqmail
+ * branch            e77f33bd5f614e967b0716a72dd706462d36a477 -> FETCH_HEAD
+git -C notqmail.git archive --prefix=notqmail-e77f33bd5f614e967b0716a72dd706462d36a477-ext-todo/ e77f33bd5f614e967b0716a72dd706462d36a477 | tar xf -
+cd notqmail-e77f33bd5f614e967b0716a72dd706462d36a477-ext-todo; patch -f -p 1 <../patch/ext-todo.patch
+Hmm...  Looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff --git a/EXTTODO.md b/EXTTODO.md
+|new file mode 100644
+|index 0000000..baf94d9
+|--- /dev/null
+|+++ b/EXTTODO.md
+--------------------------
+(Creating file EXTTODO.md...)
+Patching file EXTTODO.md using Plan A...
+Empty context always matches.
+Hunk #1 succeeded at 1.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff --git a/Makefile b/Makefile
+|index f227675..4aff16d 100644
+|--- a/Makefile
+|+++ b/Makefile
+--------------------------
+Patching file Makefile using Plan A...
+Hunk #1 succeeded at 813 with fuzz 2 (offset 32 lines).
+Hunk #2 succeeded at 1568 (offset 48 lines).
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff --git a/TARGETS b/TARGETS
+|index 6ebd7cd..030f865 100644
+|--- a/TARGETS
+|+++ b/TARGETS
+--------------------------
+Patching file TARGETS using Plan A...
+Hunk #1 succeeded at 398 (offset 23 lines).
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff --git a/conf-cc b/conf-cc
+|index e58fb9b..996801a 100644
+|--- a/conf-cc
+|+++ b/conf-cc
+--------------------------
+Patching file conf-cc using Plan A...
+Hunk #1 succeeded at 1.
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff --git a/hier.c b/hier.c
+|index 00ca66f..04a22bb 100644
+|--- a/hier.c
+|+++ b/hier.c
+--------------------------
+Patching file hier.c using Plan A...
+Hunk #1 failed at 83.
+Hunk #2 succeeded at 109 (offset -6 lines).
+1 out of 2 hunks failed--saving rejects to hier.c.rej
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff --git a/qmail-send.c b/qmail-send.c
+|index c9caef8..d9f4a46 100644
+|--- a/qmail-send.c
+|+++ b/qmail-send.c
+--------------------------
+Patching file qmail-send.c using Plan A...
+Hunk #1 succeeded at 1209 (offset -1 lines).
+Hunk #2 failed at 1236.
+Hunk #3 succeeded at 1291 (offset -1 lines).
+Hunk #4 succeeded at 1408 (offset -1 lines).
+Hunk #5 succeeded at 1473 (offset -1 lines).
+1 out of 5 hunks failed--saving rejects to qmail-send.c.rej
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff --git a/qmail-start.c b/qmail-start.c
+|index fe7f8e4..632fdd6 100644
+|--- a/qmail-start.c
+|+++ b/qmail-start.c
+--------------------------
+Patching file qmail-start.c using Plan A...
+Hunk #1 succeeded at 10 with fuzz 2 (offset -2 lines).
+Hunk #2 succeeded at 21 (offset -2 lines).
+Hunk #3 succeeded at 34 with fuzz 1 (offset -2 lines).
+Hunk #4 succeeded at 71 (offset 2 lines).
+Hunk #5 succeeded at 99 (offset -2 lines).
+Hunk #6 succeeded at 142 (offset 2 lines).
+Hunk #7 succeeded at 173 (offset -2 lines).
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff --git a/qmail-todo.c b/qmail-todo.c
+|new file mode 100644
+|index 0000000..45f10eb
+|--- /dev/null
+|+++ b/qmail-todo.c
+--------------------------
+(Creating file qmail-todo.c...)
+Patching file qmail-todo.c using Plan A...
+Empty context always matches.
+Hunk #1 succeeded at 1.
+done
+*** Error 1 in . (Makefile:32 'notqmail-e77f33bd5f614e967b0716a72dd706462d36a477-ext-todo')

@@ -1,21 +1,20 @@
 GIT = https://github.com/notqmail/notqmail
-REF = $$(git -C notqmail.git rev-parse ${BRANCH})
+SHA = $$(git -C notqmail.git rev-parse ${BRANCH})
 
-all:v notqmail.git
-	@test -n '${BRANCH}' -a -n '${PATCH}'
-	@make log/${REF}-${PATCH}.log COMMIT=${REF} PATCH=${PATCH}
-
-everything:v
+all:v
 	@xargs -I {} -n 1 make patches BRANCH={} <conf-branch
 
 branches:v
-	@echo '>>> building all $@ for patch ${PATCH}'
-	@xargs -I {} -n 1 make BRANCH={} PATCH=${PATCH} <conf-branch
+	@echo '>>> building all branches for patch ${PATCH}'
+	@xargs -I {} -n 1 make one BRANCH={} PATCH=${PATCH} <conf-branch
 
 patches:v
-	@echo '>>> building all $@ for branch ${BRANCH}'
+	@echo '>>> building all patches for branch ${BRANCH}'
 	@ls patch | sed 's/.patch$$//' |\
-	 xargs -I {} -n 1 make BRANCH=${BRANCH} PATCH={}
+	 xargs -I {} -n 1 make one BRANCH=${BRANCH} PATCH={}
+
+one:v notqmail.git
+	@make log/${SHA}-${PATCH}.log COMMIT=${SHA} PATCH=${PATCH}
 
 log/${COMMIT}-${PATCH}.log:
 	@echo building $@
@@ -26,7 +25,7 @@ build:v notqmail-${COMMIT}-${PATCH}
 	make -C notqmail-${COMMIT}-${PATCH} it
 	@echo ok
 
-notqmail-${COMMIT}-${PATCH}:v notqmail.git
+notqmail-${COMMIT}-${PATCH}: notqmail.git patch/${PATCH}.patch
 	rm -rf $@
 	git -C notqmail.git fetch origin ${COMMIT}
 	git -C notqmail.git archive --prefix=$@/ ${COMMIT} | tar xf -
@@ -35,7 +34,7 @@ notqmail-${COMMIT}-${PATCH}:v notqmail.git
 notqmail.git:
 	git clone --bare ${GIT} $@
 
-README.md:v everything
+README.md:v all
 	sh README.sh >$@
 
 brokemaster:v

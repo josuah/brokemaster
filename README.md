@@ -37,6 +37,12 @@ builds notqmail for each combination of patch and branch below.
 		<td><a href=log/aab15b1fea8a6c48953bf152a334d6a1840184c3-big-todo.log>ok</a></td>
 	</tr>
 	<tr>
+		<td>ext-todo</td>
+		<td><a href=log/8c53cd40a3329d682a905decb1f8734fa1ba2e9a-ext-todo.log>ok</a></td>
+		<td><a href=log/e77f33bd5f614e967b0716a72dd706462d36a477-ext-todo.log>error</a></td>
+		<td><a href=log/aab15b1fea8a6c48953bf152a334d6a1840184c3-ext-todo.log>error</a></td>
+	</tr>
+	<tr>
 		<td>netqmail-spp</td>
 		<td><a href=log/8c53cd40a3329d682a905decb1f8734fa1ba2e9a-netqmail-spp.log>error</a></td>
 		<td><a href=log/e77f33bd5f614e967b0716a72dd706462d36a477-netqmail-spp.log>ok</a></td>
